@@ -1,15 +1,26 @@
-'use client'
-
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button"
+import { useWindowSize } from 'react-use'
+import Confetti from 'react-confetti'
 
 export default function Step5() {
+    const navigate = useNavigate()
+    const { width, height } = useWindowSize()
+    const handleRedirect = () => {
+        navigate("/dashboard");
+    };
+
     return (
-        <div className="p-20 space-y-6 flex justify-center">
-            <div  className="container flex flex-col gap-8 justify-center items-center">
+        <div className=" p-20 space-y-6 flex justify-center">
+            <Confetti
+                width={width}
+                height={height}
+            />
+            <div className="container flex flex-col gap-8 justify-center items-center">
                 {/* Header */}
                 <div className=" text-center">
-                    <h2 className="text-2xl font-bold">Complete your profile</h2>
-                    <p className="text-sm text-gray-500">Please provide the following information</p>
+                    <h2 className="text-2xl font-bold">You have completed your profile</h2>
+                    <p className="text-sm text-gray-500">Procede To Your Dashboard</p>
                 </div>
 
                 {/* Progress Bar */}
@@ -56,8 +67,10 @@ export default function Step5() {
 
                 {/* CTA Button */}
                 <div className="relative z-10">
-                    <Button className="bg-[#1FBCF9] hover:bg-[#1FBCF9] text-white">
-                        Get personalized plan →
+                    <Button
+                        onClick={handleRedirect}
+                        className="bg-[#1FBCF9] hover:bg-[#1FBCF9] text-white">
+                        Get personalized Dashboard →
                     </Button>
                 </div>
 

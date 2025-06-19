@@ -1,8 +1,14 @@
-
+import { Button } from "@/components/ui/button"
+import { useClerk, useUser } from "@clerk/clerk-react"
+import { useNavigate } from "react-router-dom"
 export default function Hero() {
+    const { openSignIn } = useClerk()
+    const { user } = useUser()
+    const navigate = useNavigate()
     return (
+
         <>
-            <section  className=" p-20">
+            <section className=" p-20">
                 <div className="container flex flex-col items-center justify-start mt-16">
                     <div className=" flex">
                         <div className=" rounded-full inline-flex border-2 border-[#1FBCF9]/34 gap-2 px-3 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-400">
@@ -11,14 +17,28 @@ export default function Hero() {
                         </div>
 
                     </div>
-                    <div className=" text-xl md:text-3xl text-center font-medium mt-7">
+                    <div className=" text-xl md:text-3xl text-center font-medium mt-7 lg:p-14 lg:mt-10">
                         <h1>Your Personal <span className=" text-[#1FBCF9]">Healthcare</span> Assistant</h1>
                         <p className=" text-lg text-gray-500 font-medium mt-3">Instantly get right medication for your symptoms with AI {" "}
                             powered recommendations</p>
                     </div>
                     <div className=" flex items-start">
-                    <button className=" text-white bg-transparent border-2 border-white rounded-full p-2.5  hover:text-white mt-3">Sign Up</button>
-                </div>
+                        {user ? (
+                            <Button
+                                onClick={() => navigate('/dashboard')}
+                                className="bg-[#1FBCF9] hover:bg-[#1FBCF9] text-white">
+                                Dashboard →
+                            </Button>
+                        ) : (
+                            <Button
+                                onClick={() => openSignIn({ redirectUrl: '/form' })}
+                                className="bg-[#1FBCF9] hover:bg-[#1FBCF9] text-white">
+                                Sign Up →
+                            </Button>
+
+                        )}
+
+                    </div>
 
                 </div>
             </section>

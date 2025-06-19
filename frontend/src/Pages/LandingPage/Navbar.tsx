@@ -2,6 +2,9 @@ import { Activity } from 'lucide-react';
 import { useState } from 'react';
 import { twMerge } from 'tailwind-merge'
 import { AnimatePresence, motion } from "motion/react"
+import { useClerk, useUser } from '@clerk/clerk-react'
+import { useNavigate } from 'react-router-dom';
+
 
 const navLinks = [
     { label: "Home", href: "#" },
@@ -13,6 +16,10 @@ const navLinks = [
 
 function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
+    const { openSignIn } = useClerk()
+    const { user } = useUser()
+    const navigate = useNavigate()
+
     return (
         <>
             <section className=" flex items-center justify-center p-5 fixed w-full bg-[#0a0a0a] z-50 ">
@@ -43,7 +50,19 @@ function Navbar() {
                                     <line x1="3" y1="18" x2="21" y2="18" className={twMerge(' origin-left transition', isOpen && " -rotate-45 translate-y-1")}></line>
                                 </svg>
 
-                                <button className=" text-white bg-[#1FBCF9] rounded-full p-2.5 hover:bg-[#1FBCF9] hover:text-white hidden md:flex">Sign Up</button>
+                                {user ? (
+                                    <button
+                                        onClick={() => navigate('/dashboard')}
+                                        className=" text-white bg-[#1FBCF9] rounded-full p-2.5 hover:bg-[#1FBCF9] hover:text-white hidden md:flex">Dashboard
+                                    </button>
+                                ) : (
+                                    <button
+                                        onClick={() => openSignIn({ redirectUrl: '/form' })}
+                                        className=" text-white bg-[#1FBCF9] rounded-full p-2.5 hover:bg-[#1FBCF9] hover:text-white hidden md:flex">Sign Up
+                                    </button>
+
+
+                                )}
                             </div>
 
                         </div>
@@ -61,7 +80,18 @@ function Navbar() {
                                             )
 
                                         })}
-                                        <button className=" text-white bg-[#1FBCF9] rounded-full p-2.5 hover:bg-[#1FBCF9] hover:text-white ">Sign Up</button>
+                                        {user ? (
+                                            <button
+                                                onClick={() => navigate('/dashboard')}
+                                                className=" text-white bg-[#1FBCF9] rounded-full p-2.5 hover:bg-[#1FBCF9] hover:text-white ">Dashboard</button>
+
+                                        ) : (
+                                            <button
+                                                onClick={() => openSignIn({ redirectUrl: '/form' })}
+
+                                                className=" text-white bg-[#1FBCF9] rounded-full p-2.5 hover:bg-[#1FBCF9] hover:text-white ">Sign Up</button>
+
+                                        )}
                                     </div>
                                 </motion.div>
 

@@ -1,46 +1,32 @@
 import './App.css'
-// import DashboardNavbar from './Pages/Dashboard/DashboardNavbar'
-// import Sidebar from './Pages/Dashboard/Sidebar'
-import Contact from './Pages/LandingPage/Contact'
-import Faqs from './Pages/LandingPage/Faqs'
-import Feature from './Pages/LandingPage/Feature'
-import Footer from './Pages/LandingPage/Footer'
-import Hero from './Pages/LandingPage/Hero'
-import Navbar from './Pages/LandingPage/Navbar'
-// import Step1 from './Pages/Profile Forms/Step1'
-// import Step2 from './Pages/Profile Forms/Step2'
-// import Step3 from './Pages/Profile Forms/Step3'
-// import Step4 from './Pages/Profile Forms/Step4'
-// import Step5 from './Pages/Profile Forms/Step5'
-// import LogIn from './Pages/Log In/LogIn'
-// import SignIn from './Pages/Sign In/SignIn'
+import { Route, Routes } from "react-router-dom";
+import LandingLayout from './Pages/LandingPage/LandingLayout';
+import MultiStepForm from './Pages/Profile Forms/MultiStepForm';
+import DashboardLayout from './Pages/Dashboard/DashboardLayout';
+import Analytics from './Pages/Dashboard/Analytics';
+import DailyTask from './Pages/Dashboard/DailyTask';
+import DashboardHome from './Pages/Dashboard/DashBoardHome';
+import Profile from './Pages/Dashboard/Profile';
 
 function App() {
 
   return (
     <>
-   <Navbar />
-    <Hero />
-    <Feature />
-    <Contact />
-    <Faqs />
-    <Footer />
-  
-    {/* <SignIn /> */}
-    {/* <LogIn /> */}
-    {/* <Step1 />
-    <Step2 />
-     <Step3 />
-    <Step4 />
-    <Step5 /> */}
+    <Routes>
+      <Route path='/' element={<LandingLayout />} />
+      <Route path='/form' element={<MultiStepForm />} />
+      <Route path='/dashboard' element={<DashboardLayout />}>
+      <Route index element={<DashboardHome />} />
+      <Route  path='dashboard-home' element={<DashboardHome />} />
+      <Route path='analytics' element={<Analytics />} />
+      <Route path='daily-task' element={<DailyTask />} />
+      <Route path='profile' element={<Profile />} />
+      </Route>
 
 
-    {/* <div className=' w-screen h-screen flex flex-row'>
-    <Sidebar />
-    <div className=' flex-1 flex-col'>
-    <DashboardNavbar />
-    </div>
-    </div> */}
+    </Routes>
+
+    
     </>
   )
 }
