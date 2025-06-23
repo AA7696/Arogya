@@ -1,4 +1,3 @@
-// controllers/aiController.js
 import { GoogleGenAI } from '@google/genai';
 import User from '../models/usermodel.js';
 
