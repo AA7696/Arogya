@@ -7,6 +7,10 @@ import Analytics from './Pages/Dashboard/Analytics';
 import DailyTask from './Pages/Dashboard/DailyTask';
 import DashboardHome from './Pages/Dashboard/DashBoardHome';
 import Profile from './Pages/Dashboard/Profile';
+import Appointment from './Pages/Dashboard/Appointment';
+import DoctorDetail from './Pages/Dashboard/DoctorDetails';
+import AiChat from './Pages/Dashboard/AiChat';
+import AiReport from './Pages/Dashboard/AiReport';
 
 function App() {
 
@@ -20,6 +24,10 @@ function App() {
       <Route  path='dashboard-home' element={<DashboardHome />} />
       <Route path='analytics' element={<Analytics />} />
       <Route path='daily-task' element={<DailyTask />} />
+      <Route path='appointment' element={<Appointment />} />
+      <Route path='doctors/:id' element={<DoctorDetail />} />
+      <Route path='aichat' element={<AiChat />} />
+      <Route path='aireport' element={<AiReport />} />
       <Route path='profile' element={<Profile />} />
       </Route>
 

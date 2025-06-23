@@ -1,0 +1,83 @@
+[
+    {
+        "id": "doc1",
+        "name": "Dr. Ananya Mehta",
+        "specialization": "Cardiologist",
+        "image": "https://img.freepik.com/premium-photo/indian-female-doctor-indian-nurse_714173-204.jpg?w=2000",
+        "experience": "10 years",
+        "rating": 4.8,
+        "location": "Apollo Hospital, Delhi"
+    },
+    {
+        "id": "doc2",
+        "name": "Dr. Rohan Sharma",
+        "specialization": "Dermatologist",
+        "image": "https://img.freepik.com/premium-photo/portrait-indian-doctor-indian-doctor-smiling_890100-1265.jpg?w=2000",
+        "experience": "8 years",
+        "rating": 4.6,
+        "location": "Fortis, Mumbai"
+    },
+    {
+        "id": "doc4",
+        "name": "Dr. Vikram Patel",
+        "specialization": "Orthopedic Surgeon",
+        "image": "https://img.freepik.com/premium-photo/indian-male-doctor-standing-hospital-corridor_251136-3929.jpg?w=2000",
+        "experience": "15 years",
+        "rating": 4.7,
+        "location": "AIIMS, Delhi"
+    },
+    {
+        "id": "doc5",
+        "name": "Dr. Neha Kapoor",
+        "specialization": "Pediatrician",
+        "image": "https://img.freepik.com/premium-photo/indian-female-doctor-smiling-with-arms-crossed_890100-1271.jpg?w=2000",
+        "experience": "9 years",
+        "rating": 4.5,
+        "location": "Rainbow Hospital, Hyderabad"
+    },
+    {
+        "id": "doc6",
+        "name": "Dr. Arjun Verma",
+        "specialization": "Oncologist",
+        "image": "https://img.freepik.com/premium-photo/young-indian-doctor-confident-smile_890100-1010.jpg?w=2000",
+        "experience": "11 years",
+        "rating": 4.8,
+        "location": "Tata Memorial Hospital, Mumbai"
+    },
+    {
+        "id": "doc7",
+        "name": "Dr. Shalini Rao",
+        "specialization": "Gynecologist",
+        "image": "https://img.freepik.com/premium-photo/female-doctor-lab-coat-smiling_890100-1131.jpg?w=2000",
+        "experience": "13 years",
+        "rating": 4.6,
+        "location": "Cloudnine, Bangalore"
+    },
+    {
+        "id": "doc8",
+        "name": "Dr. Rahul Singh",
+        "specialization": "Psychiatrist",
+        "image": "https://img.freepik.com/premium-photo/indian-male-doctor-standing-crossed-arms-white-coat_251136-3881.jpg?w=2000",
+        "experience": "10 years",
+        "rating": 4.9,
+        "location": "NIMHANS, Bangalore"
+    },
+    {
+        "id": "doc9",
+        "name": "Dr. Pooja Nair",
+        "specialization": "Endocrinologist",
+        "image": "https://img.freepik.com/premium-photo/portrait-smiling-indian-doctor-white-coat_890100-1011.jpg?w=2000",
+        "experience": "7 years",
+        "rating": 4.4,
+        "location": "Medanta, Gurgaon"
+    },
+    {
+        "id": "doc10",
+        "name": "Dr. Manish Kulkarni",
+        "specialization": "Gastroenterologist",
+        "image": "https://img.freepik.com/premium-photo/indian-young-doctor-white-background_890100-1285.jpg?w=2000",
+        "experience": "14 years",
+        "rating": 4.7,
+        "location": "KEM Hospital, Pune"
+    }
+]
