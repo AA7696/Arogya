@@ -11,6 +11,7 @@ import Appointment from './Pages/Dashboard/Appointment';
 import DoctorDetail from './Pages/Dashboard/DoctorDetails';
 import AiChat from './Pages/Dashboard/AiChat';
 import AiReport from './Pages/Dashboard/AiReport';
+import ManageAccount from './Pages/ManageAccount/ManageAccount';
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
     <>
     <Routes>
       <Route path='/' element={<LandingLayout />} />
+      <Route path='/profile' element={<ManageAccount />} />
       <Route path='/form' element={<MultiStepForm />} />
       <Route path='/dashboard' element={<DashboardLayout />}>
       <Route index element={<DashboardHome />} />
