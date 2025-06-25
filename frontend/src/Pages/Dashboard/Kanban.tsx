@@ -22,12 +22,12 @@ interface Quadrant {
   urgent: boolean;
 }
 
-const quadrantId = (important: boolean, urgent: boolean): string => {
-  if (important && urgent) return "q1";
-  if (!important && urgent) return "q2";
-  if (important && !urgent) return "q3";
-  return "q4";
-};
+// const quadrantId = (important: boolean, urgent: boolean): string => {
+//   if (important && urgent) return "q1";
+//   if (!important && urgent) return "q2";
+//   if (important && !urgent) return "q3";
+//   return "q4";
+// };
 
 const quadrantFromId = (id: string): Quadrant => {
   switch (id) {

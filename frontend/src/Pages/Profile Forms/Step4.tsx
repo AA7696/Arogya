@@ -1,11 +1,47 @@
-
 import { useFormStore } from "@/store/formStore"
+import { useSubmitForm } from "@/hooks/useSubmitForm"
+import { useUserProfile } from "@/hooks/useUserProfile"
+import { useUpdateProfileOnLogin } from "@/hooks/useUpdateProfileOnLogin"
+import { toast } from "react-hot-toast"
+import { useUser } from "@clerk/clerk-react"
 
 export default function Step4() {
-  const { formData, updateFormData } = useFormStore()
+  const { formData } = useFormStore()
+  const { user } = useUser()
+  const { mutate: submitForm, isPending } = useSubmitForm()
+  const { mutate: updateProfile } = useUpdateProfileOnLogin()
+  const { data:profile } = useUserProfile()
 
   const handleChange = (field: string, value: string | number) => {
-    updateFormData({ [field]: value })
+    useFormStore.getState().updateFormData({ [field]: value })
+  }
+
+  const handleSubmit = async () => {
+    if (!user) {
+      return toast.error('Please login to submit the form')
+    }
+
+    const payload = {
+      email: user.primaryEmailAddress?.emailAddress,
+      name: user.fullName,
+      ...formData,
+    }
+
+        try {
+      if(profile.email){
+         updateProfile(payload )
+      }else{
+        submitForm( payload )
+      }
+      
+    } catch (error) {
+      
+    }
+
+    
+
+    
+
   }
 
   return (
@@ -17,16 +53,15 @@ export default function Step4() {
           <p className="text-sm text-gray-500">Please provide the following information</p>
         </div>
 
-        {/* Progress Steps */}
+        {/* Progress */}
         <div className="flex justify-center space-x-4">
           {[1, 2, 3, 4, 5].map((step) => (
             <div
               key={step}
-              className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
-                step <= 4
-                  ? "bg-[#1FBCF9] text-white"
-                  : "bg-gray-200 text-gray-500"
-              }`}
+              className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${step <= 4
+                ? "bg-[#1FBCF9] text-white"
+                : "bg-gray-200 text-gray-500"
+                }`}
             >
               {step < 4 ? "✓" : step}
             </div>
@@ -41,13 +76,12 @@ export default function Step4() {
               const val = i + 1
               return (
                 <button
-                type="button"
+                  type="button"
                   key={val}
-                  className={`border rounded-md py-2 text-sm flex justify-center items-center ${
-                    formData.happinessLevel === val
-                      ? "bg-[#1FBCF9] text-white"
-                      : "border-gray-300 text-white"
-                  }`}
+                  className={`border rounded-md py-2 text-sm flex justify-center items-center ${formData.happinessLevel === val
+                    ? "bg-[#1FBCF9] text-white"
+                    : "border-gray-300 text-white"
+                    }`}
                   onClick={() => handleChange("happinessLevel", val)}
                 >
                   {val}
@@ -63,13 +97,12 @@ export default function Step4() {
           <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
             {["Happy", "Sad", "Angry", "Anxious", "Stressed", "Neutral"].map((mood) => (
               <button
-              type="button"
+                type="button"
                 key={mood}
-                className={`border rounded-md py-2 text-sm flex justify-center items-center ${
-                  formData.feeling === mood
-                    ? "bg-[#1FBCF9] text-white"
-                    : "border-gray-300 text-white"
-                }`}
+                className={`border rounded-md py-2 text-sm flex justify-center items-center ${formData.feeling === mood
+                  ? "bg-[#1FBCF9] text-white"
+                  : "border-gray-300 text-white"
+                  }`}
                 onClick={() => handleChange("feeling", mood)}
               >
                 {mood}
@@ -84,13 +117,12 @@ export default function Step4() {
           <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
             {["Not Stressed", "Slightly", "Moderately", "Highly", "Extremely"].map((level) => (
               <button
-              type="button"
+                type="button"
                 key={level}
-                className={`border rounded-md py-2 text-sm flex justify-center items-center ${
-                  formData.stressLevel === level
-                    ? "bg-[#1FBCF9] text-white"
-                    : "border-gray-300 text-white"
-                }`}
+                className={`border rounded-md py-2 text-sm flex justify-center items-center ${formData.stressLevel === level
+                  ? "bg-[#1FBCF9] text-white"
+                  : "border-gray-300 text-white"
+                  }`}
                 onClick={() => handleChange("stressLevel", level)}
               >
                 {level}
@@ -105,13 +137,12 @@ export default function Step4() {
           <div className="grid grid-cols-3 gap-2">
             {["Good", "Bad", "Average"].map((quality) => (
               <button
-              type="button"
+                type="button"
                 key={quality}
-                className={`border rounded-md py-2 text-sm flex justify-center items-center ${
-                  formData.sleepQuality === quality
-                    ? "bg-[#1FBCF9] text-white"
-                    : "border-gray-300 text-white"
-                }`}
+                className={`border rounded-md py-2 text-sm flex justify-center items-center ${formData.sleepQuality === quality
+                  ? "bg-[#1FBCF9] text-white"
+                  : "border-gray-300 text-white"
+                  }`}
                 onClick={() => handleChange("sleepQuality", quality)}
               >
                 {quality}
@@ -119,6 +150,19 @@ export default function Step4() {
             ))}
           </div>
         </div>
+
+        {/* Submit */}
+        <button
+          type="button"
+          disabled={isPending}
+          onClick={handleSubmit}
+          className={`ml-auto px-4 py-2 rounded mt-9 transition-all ${isPending
+            ? "bg-gray-400 cursor-not-allowed"
+            : "bg-[#1FBCF9] text-white"
+            }`}
+        >
+          {isPending ? "Submitting..." : "Submit"}
+        </button>
       </div>
     </div>
   )

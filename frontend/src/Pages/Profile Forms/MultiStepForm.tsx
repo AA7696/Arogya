@@ -54,7 +54,7 @@ function MultiStepForm() {
                             Back
                         </button>
                     )}
-                    {step < 5 && (
+                    {step < 4 && (
                         <button
                             type="button"
                             onClick={handleNext}

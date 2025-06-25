@@ -1,28 +1,11 @@
 import {
-  PieChart,
-  Pie,
-  Cell,
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  Tooltip,
-  Radar,
-  RadarChart,
-  PolarGrid,
-  PolarAngleAxis,
-  PolarRadiusAxis,
-  ResponsiveContainer,
-  Legend,
-  BarChart,
-  Bar,
+  PieChart, Pie, Cell, LineChart, Line, XAxis, YAxis, Tooltip, Radar, RadarChart,
+  PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Legend, BarChart, Bar,
 } from "recharts"
-import { useFormStore } from "@/store/formStore"
+import { useUserProfile } from "@/hooks/useUserProfile"
 
-// Consistent soft color palette
 const COLORS = ["#1FBCF9", "#00C49F", "#FFBB28", "#F97316"]
 
-// Reusable Chart Card Wrapper
 const ChartCard = ({ title, children }: { title: string; children: React.ReactNode }) => (
   <div className="p-4 rounded-xl shadow-md hover:shadow-xl transition-shadow  dark:bg-slate-800">
     <h3 className="text-lg font-semibold text-white dark:text-white mb-4">{title}</h3>
@@ -31,133 +14,53 @@ const ChartCard = ({ title, children }: { title: string; children: React.ReactNo
 )
 
 const Analytics = () => {
-  const { formData } = useFormStore()
+  const { data: profile, isLoading, isError } = useUserProfile()
 
-  // Guard Clause: if data is not available
-  if (
-    !formData ||
-    !formData.sleepQuality ||
-    !formData.stressLevel ||
-    !formData.happinessLevel ||
-    !formData.prescriptionAdherence
-  ) {
-    return (
-      <div className="p-6 text-center text-gray-600 dark:text-gray-300">
-        <p>No data available. Please fill out your profile to view analytics.</p>
-      </div>
-    )
+  if (isLoading) {
+    return <div className="text-center text-white text-lg py-20">Loading your health data...</div>;
   }
 
-  // Pie Chart Data: Wellness Breakdown
+  if (isError || !profile) {
+    return <div className="text-center text-red-500 text-lg py-20">Failed to load profile data.</div>;
+  }
+
+  // Prepare your chart data just like before
   const wellnessPieData = [
-    { name: "Happiness", value: formData.happinessLevel },
-    {
-      name: "Stress",
-      value:
-        formData.stressLevel === "Not Stressed"
-          ? 10
-          : formData.stressLevel === "Extremely"
-          ? 1
-          : 5,
-    },
-    {
-      name: "Sleep",
-      value:
-        formData.sleepQuality === "Good"
-          ? 10
-          : formData.sleepQuality === "Bad"
-          ? 3
-          : 6,
-    },
-    {
-      name: "Adherence",
-      value: formData.prescriptionAdherence === "Always" ? 10 : 5,
-    },
+    { name: "Happiness", value: profile.happinessLevel },
+    { name: "Stress", value: profile.stressLevel === "Not Stressed" ? 10 : profile.stressLevel === "Extremely" ? 1 : 5 },
+    { name: "Sleep", value: profile.sleepQuality === "Good" ? 10 : profile.sleepQuality === "Bad" ? 3 : 6 },
+    { name: "Adherence", value: profile.prescriptionAdherence === "Always" ? 10 : 5 },
   ]
 
-  // Line Chart Data: Mood Trend
   const moodLineData = Array.from({ length: 7 }).map((_, i) => ({
     day: `Day ${i + 1}`,
-    happiness: Math.max(
-      1,
-      Math.min(
-        10,
-        (formData.happinessLevel ?? 5) + Math.floor(Math.random() * 3 - 1)
-      )
-    ),
-    stress:
-      formData.stressLevel === "Extremely"
-        ? 10
-        : formData.stressLevel === "Not Stressed"
-        ? 1
-        : 5,
+    happiness: Math.max(1, Math.min(10, (profile.happinessLevel ?? 5) + Math.floor(Math.random() * 3 - 1))),
+    stress: profile.stressLevel === "Extremely" ? 10 : profile.stressLevel === "Not Stressed" ? 1 : 5,
   }))
 
-  // Radar Chart Data: Health Overview
   const radarData = [
-    {
-      metric: "Sleep",
-      score:
-        formData.sleepQuality === "Good"
-          ? 9
-          : formData.sleepQuality === "Average"
-          ? 5
-          : 2,
-    },
-    {
-      metric: "Stress",
-      score:
-        formData.stressLevel === "Not Stressed"
-          ? 9
-          : formData.stressLevel === "Extremely"
-          ? 2
-          : 5,
-    },
-    {
-      metric: "Happiness",
-      score: formData.happinessLevel,
-    },
-    {
-      metric: "Adherence",
-      score:
-        formData.prescriptionAdherence === "Always"
-          ? 10
-          : formData.prescriptionAdherence === "Never"
-          ? 2
-          : 5,
-    },
+    { metric: "Sleep", score: profile.sleepQuality === "Good" ? 9 : profile.sleepQuality === "Average" ? 5 : 2 },
+    { metric: "Stress", score: profile.stressLevel === "Not Stressed" ? 9 : profile.stressLevel === "Extremely" ? 2 : 5 },
+    { metric: "Happiness", score: profile.happinessLevel },
+    { metric: "Adherence", score: profile.prescriptionAdherence === "Always" ? 10 : profile.prescriptionAdherence === "Never" ? 2 : 5 },
   ]
 
-  // Bar Chart Data
   const barData = [
     {
       name: "User",
-      Sleep:
-        formData.sleepQuality === "Good"
-          ? 9
-          : formData.sleepQuality === "Average"
-          ? 5
-          : 2,
-      Adherence:
-        formData.prescriptionAdherence === "Always"
-          ? 10
-          : formData.prescriptionAdherence === "Never"
-          ? 2
-          : 5,
+      Sleep: profile.sleepQuality === "Good" ? 9 : profile.sleepQuality === "Average" ? 5 : 2,
+      Adherence: profile.prescriptionAdherence === "Always" ? 10 : profile.prescriptionAdherence === "Never" ? 2 : 5,
     },
   ]
 
   return (
     <div className="p-6  dark:bg-[#0f172a] min-h-screen">
-      {/* Dashboard Header */}
       <h2 className="text-3xl font-bold text-[#1fbcf9] mb-2">Analytics</h2>
       <p className="text-white dark:text-gray-400 mb-6">
         Visual summary of your health & wellness data
       </p>
 
-      {/* Chart Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-8 bg-transparent">
-        {/* Pie Chart */}
         <ChartCard title="Wellness Breakdown">
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
@@ -171,7 +74,6 @@ const Analytics = () => {
           </ResponsiveContainer>
         </ChartCard>
 
-        {/* Line Chart */}
         <ChartCard title="Mood Trend">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={moodLineData}>
@@ -185,26 +87,18 @@ const Analytics = () => {
           </ResponsiveContainer>
         </ChartCard>
 
-        {/* Radar Chart */}
         <ChartCard title="Health Overview">
           <ResponsiveContainer width="100%" height="100%">
             <RadarChart cx="50%" cy="50%" outerRadius="80%" data={radarData}>
               <PolarGrid />
               <PolarAngleAxis dataKey="metric" />
               <PolarRadiusAxis angle={30} domain={[0, 10]} />
-              <Radar
-                name="Score"
-                dataKey="score"
-                stroke="#8884d8"
-                fill="#8884d8"
-                fillOpacity={0.6}
-              />
+              <Radar name="Score" dataKey="score" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
               <Tooltip />
             </RadarChart>
           </ResponsiveContainer>
         </ChartCard>
 
-        {/* Bar Chart */}
         <ChartCard title="Sleep Quality vs. Adherence">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={barData}>

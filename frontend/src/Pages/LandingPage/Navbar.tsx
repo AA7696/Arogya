@@ -4,6 +4,7 @@ import { twMerge } from 'tailwind-merge'
 import { AnimatePresence, motion } from "motion/react"
 import { useClerk, useUser } from '@clerk/clerk-react'
 import { useNavigate } from 'react-router-dom';
+import { useUserProfile } from '@/hooks/useUserProfile';
 
 
 const navLinks = [
@@ -19,6 +20,7 @@ function Navbar() {
     const { openSignIn } = useClerk()
     const { user } = useUser()
     const navigate = useNavigate()
+    const {data: profile} = useUserProfile()
 
     return (
         <>

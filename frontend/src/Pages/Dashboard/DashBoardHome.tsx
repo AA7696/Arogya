@@ -1,4 +1,4 @@
-import { useFormStore } from "@/store/formStore";
+import { useUserProfile } from "@/hooks/useUserProfile";
 import {
   Card,
   CardContent,
@@ -37,7 +37,15 @@ const StatCard = ({
 );
 
 const DashboardHome = () => {
-  const { formData } = useFormStore();
+  const { data: profile, isLoading, isError } = useUserProfile();
+
+  if (isLoading) {
+    return <div className="text-center text-white text-lg py-20">Loading your health data...</div>;
+  }
+
+  if (isError || !profile) {
+    return <div className="text-center text-red-500 text-lg py-20">Failed to load profile data.</div>;
+  }
 
   return (
     <div className="p-12 space-y-10">
@@ -48,10 +56,10 @@ const DashboardHome = () => {
 
       {/* Top Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <StatCard icon={Smile} title="Happiness" value={`${formData.happinessLevel}/10`} />
-        <StatCard icon={HeartPulse} title="Mood" value={formData.feeling ?? "Not Provided"} />
-        <StatCard icon={Zap} title="Stress" value={formData.stressLevel ?? "Not Provided"} />
-        <StatCard icon={BedDouble} title="Sleep Quality" value={formData.sleepQuality ?? "Not Provided"} />
+        <StatCard icon={Smile} title="Happiness" value={`${profile.happinessLevel ?? 'N/A'}/10`} />
+        <StatCard icon={HeartPulse} title="Mood" value={profile.feeling ?? "Not Provided"} />
+        <StatCard icon={Zap} title="Stress" value={profile.stressLevel ?? "Not Provided"} />
+        <StatCard icon={BedDouble} title="Sleep Quality" value={profile.sleepQuality ?? "Not Provided"} />
       </div>
 
       {/* Medical Details */}
@@ -59,12 +67,20 @@ const DashboardHome = () => {
         <StatCard
           icon={Thermometer}
           title="Symptom"
-          value={`${formData.symptom} (${formData.symptomDuration})`}
+          value={
+            profile.symptom
+              ? `${profile.symptom} (${profile.symptomDuration || 'Duration Unknown'})`
+              : "Not Provided"
+          }
         />
         <StatCard
           icon={Pill}
           title="Medication"
-          value={`${formData.dosage} of ${formData.medicalHistory} (${formData.purpose})`}
+          value={
+            profile.medicalHistory
+              ? `${profile.dosage || 'Dose N/A'} of ${profile.medicalHistory} (${profile.purpose || 'Purpose N/A'})`
+              : "Not Provided"
+          }
         />
       </div>
 
@@ -73,7 +89,7 @@ const DashboardHome = () => {
         <StatCard
           icon={ClipboardCheck}
           title="Prescription Adherence"
-          value={formData.prescriptionAdherence || "Not Provided"}
+          value={profile.prescriptionAdherence || "Not Provided"}
         />
         <Card className="bg-white/5 backdrop-blur-md border border-white/10 text-white shadow-lg">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -82,9 +98,9 @@ const DashboardHome = () => {
           </CardHeader>
           <CardContent>
             <p className="text-sm text-[#1FBCF9]">
-              {formData.stressLevel === "Highly"
+              {profile.stressLevel === "Highly"
                 ? "Try deep breathing or a 5-minute walk."
-                : formData.sleepQuality === "Bad"
+                : profile.sleepQuality === "Bad"
                 ? "Avoid screens before bed and try herbal tea."
                 : "You're doing great! Keep it up!"}
             </p>
