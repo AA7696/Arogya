@@ -11,6 +11,7 @@ export const createTask = async (req, res) => {
     if (!userExists) {
       return res.status(404).json({ message: 'User not found' });
     }
+    
 
     const task = new Task({
       user: userId,

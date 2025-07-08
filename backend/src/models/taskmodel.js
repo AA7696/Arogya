@@ -2,10 +2,9 @@
 import mongoose from 'mongoose';
 
 const taskSchema = new mongoose.Schema({
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User', // Referencing the User model
-    required: true,
+  userId: {
+    type: String,
+    required: true
   },
   text: {
     type: String,

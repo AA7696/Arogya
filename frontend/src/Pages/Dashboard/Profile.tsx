@@ -1,20 +1,31 @@
-import { useFormStore } from "@/store/formStore";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useUser } from "@clerk/clerk-react";
 import { useUpdateProfile } from "@/hooks/useUpdateProfile";
 import { toast } from "react-hot-toast";
+import { useUserProfile } from "@/hooks/useUserProfile"
+
+
 
 export default function ProfileForm() {
-  const { formData, updateFormData } = useFormStore();
-  const [form, setForm] = useState({ ...formData });
+    const { data: profile } = useUserProfile()
+
+
+  const [form, setForm] = useState({ ...profile });
   const { user } = useUser();
   const { mutate, isPending } = useUpdateProfile();
+
+      useEffect(() => {
+        if (!profile) {
+            toast.error("❌ Failed to load profile data.");
+        }   
+}, [profile]);
+
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    setForm(prev => ({ ...prev, [name]: value }));
+    setForm((prev: typeof form) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -33,7 +44,6 @@ export default function ProfileForm() {
 
     mutate(payload, {
       onSuccess: () => {
-        updateFormData(form);
         toast.success("✅ Profile updated successfully!");
       },
       onError: () => {

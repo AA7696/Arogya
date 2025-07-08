@@ -5,7 +5,7 @@ import cookieParser from 'cookie-parser';
 import userRoutes from './routes/userRoutes.js';
 import taskRoutes from './routes/taskRoute.js'
 import aiRoutes from './routes/aiRoutes.js'
-// import blogRoutes from './routes/blogRoutes.js'
+import blogRoutes from './routes/blogRoutes.js'
 
 
 const app = express();
@@ -29,7 +29,7 @@ app.get("/debug-sentry", function mainHandler(req, res) {
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/tasks', taskRoutes);
 app.use('/api/v1/aichat', aiRoutes);
-// app.use('/api/v1/blog', blogRoutes);
+app.use('/api/v1/blogs', blogRoutes);
 
 Sentry.setupExpressErrorHandler(app);
 

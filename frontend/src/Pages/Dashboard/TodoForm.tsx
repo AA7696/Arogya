@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useUserProfile } from "@/hooks/useUserProfile";
 
 interface TaskInput {
+  userId: string;
   text: string;
   important: boolean;
   urgent: boolean;
@@ -14,12 +16,14 @@ export default function TodoForm({ onAdd }: TaskFormProps) {
   const [text, setText] = useState("");
   const [important, setImportant] = useState(false);
   const [urgent, setUrgent] = useState(false);
+  const { data: profile } = useUserProfile();
+
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const trimmed = text.trim();
     if (!trimmed) return alert("Task can't be empty.");
-    onAdd({ text: trimmed, important, urgent });
+    onAdd({ userId: profile._id,text: trimmed, important, urgent });
     setText("");
     setImportant(false);
     setUrgent(false);

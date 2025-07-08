@@ -63,7 +63,8 @@ export const generateHealthReport = async (req, res) => {
           text: `
             Please generate a comprehensive health and wellness report for the following user profile.
             Structure the report with the following sections using Markdown headings (e.g., # Section Title):
-            # Health and Wellness Report for ${user.email}
+            # Arogya
+            # Health and Wellness Report for ${user.name}
 
             ## 1. Summary of Health Profile
             A brief overview of the user's key health data.
