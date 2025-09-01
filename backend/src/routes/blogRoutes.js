@@ -3,6 +3,7 @@ import express from 'express';
 import {
   createBlog,
   getAllBlogs,
+  getBlogById,
   getBlogsByUser,
   updateBlog,
   deleteBlog
@@ -12,7 +13,8 @@ const router = express.Router();
 
 router.post('/', createBlog);
 router.get('/', getAllBlogs);
-router.get('/:userId', getBlogsByUser);
+router.get('/user/:userId', getBlogsByUser);
+router.get('/', getBlogById)
 router.put('/:blogId', updateBlog);
 router.delete('/:blogId', deleteBlog);
 

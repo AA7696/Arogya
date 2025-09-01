@@ -13,8 +13,9 @@ export const createTask = async (req, res) => {
     }
     
 
+
     const task = new Task({
-      user: userId,
+      userId: userId,
       text,
       important,
       urgent,
@@ -34,7 +35,7 @@ export const getTasksByUser = async (req, res) => {
   try {
     const { userId } = req.params;
 
-    const tasks = await Task.find({ user: userId }).sort({ createdAt: -1 });
+    const tasks = await Task.find({ userId: userId }).sort({ createdAt: -1 });
     res.status(200).json(tasks);
   } catch (error) {
     console.error('Error fetching tasks:', error);

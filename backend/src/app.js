@@ -6,6 +6,8 @@ import userRoutes from './routes/userRoutes.js';
 import taskRoutes from './routes/taskRoute.js'
 import aiRoutes from './routes/aiRoutes.js'
 import blogRoutes from './routes/blogRoutes.js'
+import doctorRoutes from './routes/doctorRoutes.js'
+import appointmentRoutes from './routes/appointmentRoutes.js'
 
 
 const app = express();
@@ -30,6 +32,8 @@ app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/tasks', taskRoutes);
 app.use('/api/v1/aichat', aiRoutes);
 app.use('/api/v1/blogs', blogRoutes);
+app.use('/api/v1/doctors', doctorRoutes);
+app.use('/api/v1/appointments', appointmentRoutes);
 
 Sentry.setupExpressErrorHandler(app);
 

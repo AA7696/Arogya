@@ -43,6 +43,21 @@ export const getAllBlogs = async (req, res) => {
   }
 };
 
+// get blog by id
+export const getBlogById = async (req, res) => {
+  const { blogId } = req.params;
+  try {
+    const blog = await Blog.findById(blogId);
+    if (!blog) {
+      return res.status(404).json({ message: "Blog not found" });
+    }
+    res.status(200).json(blog);
+  } catch (error) {
+    console.error("Error fetching blog by ID:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+}
+
 // @desc Get blogs by user ID
 export const getBlogsByUser = async (req, res) => {
   try {
