@@ -34,14 +34,6 @@ Arogya is a **full-stack AI-powered healthcare web application** designed to pro
 - Browse doctor profiles with specialization & availability  
 - Book, manage, and track appointments  
 
-### 🛒 Medical Store
-- Browse and search medicines  
-- View detailed product descriptions  
-- Add to cart, checkout, and track orders  
-
-### 📝 Blogs
-- View all blogs for healthcare knowledge  
-- Create, edit, and delete personal blogs  
 
 ---
 
