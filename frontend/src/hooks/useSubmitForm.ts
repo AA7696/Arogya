@@ -8,7 +8,7 @@ export const useSubmitForm = () => {
     const navigate = useNavigate()
   return useMutation({
     mutationFn: async (formData: any) => {
-      const res = await axios.post("http://localhost:8000/api/v1/users", formData)
+      const res = await axios.post("/api/v1/users", formData)
       return res.data
     },
      onSuccess: () => {

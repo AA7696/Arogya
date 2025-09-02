@@ -11,7 +11,7 @@ export const useUserProfile =  () =>{
     return useQuery({
         queryKey: ['user-profile', email],
         queryFn: async () => {
-            const {data} = await axios.get(`http://localhost:8000/api/v1/users/${email}`);
+            const {data} = await axios.get(`/api/v1/users/${email}`);
             return data;
         },
         // If the user is not logged in, return null

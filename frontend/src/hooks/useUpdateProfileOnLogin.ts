@@ -14,7 +14,7 @@ export const useUpdateProfileOnLogin = () => {
 
     return useMutation({
         mutationFn: async (data: any) => {
-            const res = await axios.put(`http://localhost:8000/api/v1/users/${email}`, data)
+            const res = await axios.put(`/api/v1/users/${email}`, data)
             return res.data
         },
         onSuccess: () => {

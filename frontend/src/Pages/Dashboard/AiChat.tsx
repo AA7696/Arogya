@@ -28,7 +28,7 @@ export default function AiChat() {
 
     setLoading(true);
     try {
-      const res = await axios.post("http://localhost:8000/api/v1/aichat/chat", {
+      const res = await axios.post("/api/v1/aichat/chat", {
         message: input,
         userEmail: user?.emailAddresses[0]?.emailAddress, // send email
       });

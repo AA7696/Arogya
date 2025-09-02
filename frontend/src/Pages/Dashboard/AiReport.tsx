@@ -21,7 +21,7 @@ export default function AiReport() {
       setLoading(true);
 
       const response = await axios.post(
-        "http://localhost:8000/api/v1/aichat/report",
+        "/api/v1/aichat/report",
         { userEmail: email },
         { responseType: "blob" } // Important to get PDF as binary
       );
