@@ -11,10 +11,7 @@ services:
       - mongo
 
   frontend:
-    build:
-      context: ./frontend
-      args:             # 👈 build args for Vite
-        VITE_CLERK_PUBLISHABLE_KEY: ${VITE_CLERK_PUBLISHABLE_KEY}
+    build: ./frontend
     container_name: arogya-frontend
     ports:
       - "80:80"
