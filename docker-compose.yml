@@ -1,4 +1,5 @@
 version: "3.8"
+
 services:
   backend:
     build: ./backend
@@ -11,12 +12,18 @@ services:
       - mongo
 
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
+      args:
+        # Pass the Vite variable from frontend/.env into the Docker build
+        - VITE_CLERK_PUBLISHABLE_KEY=${VITE_CLERK_PUBLISHABLE_KEY}
     container_name: arogya-frontend
     ports:
       - "80:80"
     depends_on:
       - backend
+    env_file:
+      - ./frontend/.env   # makes sure vite variables are available
 
   mongo:
     image: mongo:6
