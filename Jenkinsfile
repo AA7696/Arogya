@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        APP_DIR = "/root/Arogya" // path on EC2 where app lives
+        APP_DIR = "/var/lib/jenkins/Arogya" // path on EC2 where app lives
     }
 
     stages {
