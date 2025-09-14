@@ -1,4 +1,4 @@
-import Blog from '../models/blogModel.js';
+import Blog from '../models/blogmodel.js';
 import User from '../models/usermodel.js';
 
 // @desc Create a new blog
