@@ -30,9 +30,6 @@ Arogya is a **full-stack AI-powered healthcare web application** designed to pro
 - Generate **detailed personalized health reports** using AI  
 - Downloadable reports in **PDF format**  
 
-### 👨‍⚕️ Doctor Appointments
-- Browse doctor profiles with specialization & availability  
-- Book, manage, and track appointments  
 
 
 ---
